@@ -15,5 +15,5 @@ const Enquiry = new mongoose.Schema({
     { timestamps: true }
 )
 
-const e_model = new mongoose.model("Enquiry", Enquiry)
+const e_model = new mongoose.model("leads", Enquiry)
 module.exports = e_model

@@ -11,5 +11,5 @@ const User = new mongoose.Schema({
 }, { timestamps: true },
 )
 
-const model = new mongoose.model("Master-Register", User)
+const model = new mongoose.model("master-register", User)
 module.exports = model
