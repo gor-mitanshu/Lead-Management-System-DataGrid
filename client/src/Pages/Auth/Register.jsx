@@ -86,7 +86,6 @@ const Register = () => {
           key: user.key,
         }
       );
-      console.log(res);
       if (res && res.data.success) {
         toast.success(res.data.message);
         navigate("/login");

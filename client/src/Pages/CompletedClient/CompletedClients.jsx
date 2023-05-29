@@ -1,21 +1,15 @@
-import { Delete, Edit } from "@mui/icons-material";
 import {
-  Grid,
-  IconButton,
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Typography,
-} from "@mui/material";
+  Delete,
+  Edit,
+  // Visibility
+} from "@mui/icons-material";
+import { Grid, Typography } from "@mui/material";
 import Loader from "../Loader";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { DataGrid, GridActionsCellItem, GridToolbar } from "@mui/x-data-grid";
 
 const Clients = () => {
   const [id, setId] = useState();
@@ -36,7 +30,7 @@ const Clients = () => {
   const getData = async () => {
     let response = await axios.get(`${process.env.REACT_APP_API}/api/getleads`);
 
-    if (response.status === 200) {
+    if (!!response && response.data.success) {
       setLoading(false);
       setClient(response.data.data.filter((e) => e.status === "COMPLETED"));
     }
@@ -73,6 +67,93 @@ const Clients = () => {
       toast.error(error.response.data.message);
     }
   };
+
+  const columns = [
+    {
+      field: "id",
+      headerName: "ID",
+      headerClassName: "header",
+      description: "ID",
+      flex: 0,
+    },
+    {
+      field: "name",
+      headerName: "Name",
+      headerClassName: "header",
+      description: "Name",
+      flex: 1,
+      editable: true,
+    },
+
+    {
+      field: "email",
+      headerName: "Email",
+      headerClassName: "header",
+      description: "Email",
+      flex: 1,
+      editable: true,
+    },
+    {
+      field: "phone",
+      headerName: "Phone",
+      headerClassName: "header",
+      description: "Contact",
+      flex: 1,
+      editable: true,
+    },
+
+    {
+      field: "company",
+      headerName: "Company",
+      headerClassName: "header",
+      description: "Company of the associated Client ",
+      flex: 1,
+    },
+    {
+      field: "lead",
+      headerName: "Lead",
+      headerClassName: "header",
+      description: "Lead Information",
+      flex: 1,
+    },
+    {
+      field: "actions",
+      headerName: "Actions",
+      headerClassName: "header",
+      description: "Actions",
+      flex: 0,
+      type: "actions",
+
+      getActions: (params) => [
+        // <GridActionsCellItem
+        //   icon={<Visibility color={"primary"} />}
+        //   label="Delete"
+        //   onClick={() => navigate(`/viewclient/${params.row.clientId}`)}
+        // />,
+        <GridActionsCellItem
+          icon={<Delete color={"error"} />}
+          label="Delete"
+          onClick={() => onDelete(params.row.clientId)}
+        />,
+        <GridActionsCellItem
+          icon={<Edit color="info" />}
+          label="Edit"
+          onClick={() => navigate(`/editclient/${params.row.clientId}`)}
+        />,
+      ],
+    },
+  ];
+
+  const rows = client.map((row, key) => ({
+    id: key + 1,
+    name: row.firstname + " " + row.lastname,
+    email: row.email,
+    phone: row.phone,
+    company: row.company,
+    lead: row.enquiry,
+    actions: row.actions,
+    clientId: row._id,
+  }));
   return (
     <>
       {isloading ? (
@@ -107,137 +188,17 @@ const Clients = () => {
                 <h1>* NO CLIENT DATA FOUND...</h1>
               </div>
             ) : (
-              <TableContainer
-                component={Paper}
-                sx={{ overflow: "auto", maxHeight: "74vh" }}
-              >
-                <Table>
-                  <TableHead>
-                    <TableRow>
-                      <TableCell
-                        sx={{
-                          background: "black",
-                          color: "white",
-                          textAlign: "center",
-                        }}
-                      >
-                        Id
-                      </TableCell>
-                      <TableCell
-                        sx={{
-                          background: "black",
-                          color: "white",
-                          textAlign: "center",
-                        }}
-                      >
-                        Name
-                      </TableCell>
-
-                      <TableCell
-                        sx={{
-                          background: "black",
-                          color: "white",
-                          textAlign: "center",
-                        }}
-                      >
-                        Email
-                      </TableCell>
-                      <TableCell
-                        sx={{
-                          background: "black",
-                          color: "white",
-                          textAlign: "center",
-                        }}
-                      >
-                        Phone
-                      </TableCell>
-                      <TableCell
-                        sx={{
-                          background: "black",
-                          color: "white",
-                          textAlign: "center",
-                        }}
-                      >
-                        Company{" "}
-                      </TableCell>
-
-                      {role === "admin" ? (
-                        <>
-                          {/* <TableCell
-                            sx={{
-                              background: "black",
-                              color: "white",
-                              textAlign: "center",
-                            }}
-                          >
-                            Assign to
-                          </TableCell> */}
-                          <TableCell
-                            sx={{
-                              background: "black",
-                              color: "white",
-                              textAlign: "center",
-                            }}
-                          >
-                            Actions
-                          </TableCell>
-                        </>
-                      ) : null}
-                    </TableRow>
-                  </TableHead>
-
-                  <TableBody>
-                    {client.map((row, key) => (
-                      <TableRow key={key}>
-                        <TableCell sx={{ textAlign: "center" }}>
-                          {key + 1}
-                        </TableCell>
-                        <TableCell sx={{ textAlign: "center" }}>
-                          {row.firstname} {row.lastname}
-                        </TableCell>
-                        <TableCell sx={{ textAlign: "center" }}>
-                          {row.email}
-                        </TableCell>
-                        <TableCell sx={{ textAlign: "center" }}>
-                          {row.phone}
-                        </TableCell>
-                        <TableCell sx={{ textAlign: "center" }}>
-                          {row.company}
-                        </TableCell>
-
-                        {role === "admin" ? (
-                          <>
-                            {/* <TableCell sx={{ textAlign: "center" }}>
-                              {row.employeename}
-                            </TableCell> */}
-                            <TableCell
-                              align="center"
-                              sx={{ display: "flex", justifyContent: "center" }}
-                            >
-                              <IconButton
-                                aria-label="edit"
-                                color="info"
-                                onClick={() =>
-                                  navigate(`/editclient/${row._id}`)
-                                }
-                              >
-                                <Edit />
-                              </IconButton>
-                              <IconButton
-                                aria-label="delete"
-                                color="error"
-                                onClick={() => onDelete(row._id)}
-                              >
-                                <Delete />
-                              </IconButton>
-                            </TableCell>
-                          </>
-                        ) : null}
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </TableContainer>
+              <DataGrid
+                columns={columns}
+                rows={rows}
+                initialState={{
+                  ...client.initialState,
+                  pagination: { paginationModel: { pageSize: 6 } },
+                }}
+                pageSizeOptions={[6, 20, 30]}
+                sx={{ background: "#a9a9a914" }}
+                slots={{ toolbar: GridToolbar }}
+              />
             )}
           </Grid>
         </Grid>

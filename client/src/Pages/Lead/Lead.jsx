@@ -1,28 +1,16 @@
 import { Delete, Edit, PersonAddAlt, Visibility } from "@mui/icons-material";
-import {
-  Button,
-  Chip,
-  Grid,
-  IconButton,
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Typography,
-} from "@mui/material";
+import { Button, Grid, Typography } from "@mui/material";
 import Loader from "../Loader";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { DataGrid, GridActionsCellItem, GridToolbar } from "@mui/x-data-grid";
 
 const Lead = () => {
   const [id, setId] = useState();
   const [role, setRole] = useState();
-  const [enq, setEnq] = useState([]);
+  const [lead, setLead] = useState([]);
   const [isloading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -31,17 +19,17 @@ const Lead = () => {
       .get(`${process.env.REACT_APP_API}/getemplead/${id}`)
       .then((res) => {
         setLoading(false);
-        setEnq(res.data.data);
+        setLead(res.data.data);
       });
   };
 
-  const getEnqData = async () => {
+  const getLeadData = async () => {
     await axios
       .get(`${process.env.REACT_APP_API}/api/getleads`)
       .then((response) => {
         if (response.status === 200) {
           setLoading(false);
-          setEnq(response.data.data);
+          setLead(response.data.data);
         }
       })
       .catch((error) => {
@@ -62,7 +50,7 @@ const Lead = () => {
     setLoading(true);
     setTimeout(() => {
       if (role === "admin") {
-        getEnqData();
+        getLeadData();
       } else if (role === "employee") {
         getEmpLead();
       }
@@ -71,13 +59,13 @@ const Lead = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, role]);
 
-  const onEnqDelete = async (id) => {
+  const onLeadDelete = async (id) => {
     try {
       const res = await axios.delete(
         `${process.env.REACT_APP_API}/api/deletelead/${id}`
       );
       if (res && res.data.success) {
-        getEnqData();
+        getLeadData();
         toast.success(res.data.message);
       } else {
         toast.error(res.data.message);
@@ -86,6 +74,116 @@ const Lead = () => {
       toast.error(error.response.data.message);
     }
   };
+
+  const onDeleteAll = async () => {
+    try {
+      const res = await axios.delete(
+        `${process.env.REACT_APP_API}/api/delete-all`
+      );
+      if (res && res.data.success) {
+        getLeadData();
+        toast.success(res.data.message);
+      } else {
+        toast.error(res.data.message);
+      }
+    } catch (error) {
+      toast.error(error.data.message);
+    }
+  };
+  const columns = [
+    {
+      field: "id",
+      headerName: "ID",
+      headerClassName: "header",
+      description: "ID",
+      flex: 0,
+    },
+    {
+      field: "name",
+      headerName: "Name",
+      headerClassName: "header",
+      description: "Name",
+      flex: 1,
+      editable: true,
+    },
+
+    {
+      field: "email",
+      headerName: "Email",
+      headerClassName: "header",
+      description: "Email",
+      flex: 1,
+      editable: true,
+    },
+    {
+      field: "phone",
+      headerName: "Phone",
+      headerClassName: "header",
+      description: "Contact",
+      flex: 1,
+      editable: true,
+    },
+    {
+      field: "assign",
+      headerName: "Assign",
+      headerClassName: "header",
+      description: "Assigned to particular Employee",
+      flex: 1,
+      editable: true,
+    },
+    {
+      field: "status",
+      headerName: "Status",
+      headerClassName: "header",
+      description: "Status of the Lead",
+      flex: 1,
+    },
+    {
+      field: "lead",
+      headerName: "Lead",
+      headerClassName: "header",
+      description: "Lead Information",
+      flex: 1,
+    },
+    {
+      field: "actions",
+      headerName: "Actions",
+      headerClassName: "header",
+      description: "Actions",
+      flex: 0,
+      type: "actions",
+
+      getActions: (params) => [
+        <GridActionsCellItem
+          icon={<Visibility color={"primary"} />}
+          label="Delete"
+          onClick={() => navigate(`/viewlead/${params.row.leadId}`)}
+        />,
+        <GridActionsCellItem
+          icon={<Delete color={"error"} />}
+          label="Delete"
+          onClick={() => onLeadDelete(params.row.leadId)}
+        />,
+        <GridActionsCellItem
+          icon={<Edit color="info" />}
+          label="Edit"
+          onClick={() => navigate(`/editlead/${params.row.leadId}`)}
+        />,
+      ],
+    },
+  ];
+
+  const rows = lead.map((row, key) => ({
+    id: key + 1,
+    name: row.firstname + " " + row.lastname,
+    email: row.email,
+    phone: row.phone,
+    assign: row.employeename,
+    status: row.status,
+    actions: row.actions,
+    lead: row.enquiry,
+    leadId: row._id,
+  }));
 
   return (
     <>
@@ -115,198 +213,57 @@ const Lead = () => {
             </Typography>
             {role === "admin" ? (
               <>
-                <Link
-                  to="/addlead"
-                  className="btn-link"
-                  style={{ marginBottom: "24px" }}
+                <Grid
+                  item
+                  sx={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    flexWrap: "wrap-reverse",
+                  }}
+                  xs={12}
                 >
-                  <Button variant="contained" color="primary">
-                    <PersonAddAlt sx={{ paddingRight: "5px" }} /> Add Lead
+                  <Button
+                    variant="contained"
+                    color="error"
+                    startIcon={<Delete />}
+                    onClick={onDeleteAll}
+                    sx={{ marginBottom: "16px" }}
+                  >
+                    Delete All Leads
                   </Button>
-                </Link>
+                  <Link to="/addemployee" className="btn-link">
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      startIcon={<PersonAddAlt />}
+                      sx={{ marginBottom: "16px" }}
+                    >
+                      Add Employee
+                    </Button>
+                  </Link>
+                </Grid>
               </>
             ) : null}
           </Grid>
 
           <Grid item lg={12} sm={12} xs={11}>
-            {enq.length <= 0 ? (
+            {lead.length <= 0 ? (
               <div style={{ textAlign: "center", color: "red" }}>
                 <h1>* NO Lead DATA FOUND...</h1>
               </div>
             ) : (
-              <TableContainer
-                component={Paper}
-                sx={{ overflow: "auto", maxHeight: "74vh" }}
-              >
-                <Table>
-                  <TableHead>
-                    <TableRow>
-                      <TableCell
-                        sx={{
-                          background: "black",
-                          color: "white",
-                          textAlign: "center",
-                          width: "50px",
-                        }}
-                      >
-                        Id
-                      </TableCell>
-                      <TableCell
-                        sx={{
-                          background: "black",
-                          color: "white",
-                          textAlign: "center",
-                        }}
-                      >
-                        Name
-                      </TableCell>
-                      <TableCell
-                        sx={{
-                          background: "black",
-                          color: "white",
-                          textAlign: "center",
-                        }}
-                      >
-                        Email
-                      </TableCell>
-                      <TableCell
-                        sx={{
-                          background: "black",
-                          color: "white",
-                          textAlign: "center",
-                        }}
-                      >
-                        Phone
-                      </TableCell>
-                      {role === "admin" ? (
-                        <TableCell
-                          sx={{
-                            background: "black",
-                            color: "white",
-                            textAlign: "center",
-                          }}
-                        >
-                          Assign to
-                        </TableCell>
-                      ) : null}
-                      <TableCell
-                        sx={{
-                          background: "black",
-                          color: "white",
-                          textAlign: "center",
-                        }}
-                      >
-                        Status
-                      </TableCell>
-
-                      <TableCell
-                        sx={{
-                          background: "black",
-                          color: "white",
-                          textAlign: "center",
-                        }}
-                      >
-                        Actions
-                      </TableCell>
-                    </TableRow>
-                  </TableHead>
-
-                  <TableBody>
-                    {enq.map((row, key) => (
-                      <TableRow key={key}>
-                        <TableCell sx={{ textAlign: "center", width: "50px" }}>
-                          {key + 1}
-                        </TableCell>
-                        <TableCell sx={{ textAlign: "center" }}>
-                          {row.firstname} {row.lastname}
-                        </TableCell>
-                        <TableCell sx={{ textAlign: "center" }}>
-                          {row.email}
-                        </TableCell>
-                        <TableCell sx={{ textAlign: "center" }}>
-                          {row.phone}
-                        </TableCell>
-                        {role === "admin" ? (
-                          <TableCell sx={{ textAlign: "center" }}>
-                            {row.employeename}
-                          </TableCell>
-                        ) : null}
-                        <TableCell sx={{ textAlign: "center" }}>
-                          <Chip
-                            label={row.status}
-                            sx={{ width: "120px" }}
-                            className={
-                              row.status === "PENDING"
-                                ? "pending"
-                                : row.status === "COMPLETED"
-                                ? "accepted"
-                                : row.status === "REJECTED"
-                                ? "rejected"
-                                : ""
-                            }
-                            variant="contained"
-                            size="medium"
-                          />
-                        </TableCell>
-
-                        {role === "admin" ? (
-                          <>
-                            <TableCell
-                              align="center"
-                              sx={{ display: "flex", justifyContent: "center" }}
-                            >
-                              <IconButton
-                                aria-label="edit"
-                                color="inherit"
-                                onClick={() => navigate(`/viewlead/${row._id}`)}
-                              >
-                                <Visibility />
-                              </IconButton>
-                              <IconButton
-                                aria-label="edit"
-                                color="info"
-                                onClick={() => navigate(`/editlead/${row._id}`)}
-                              >
-                                <Edit />
-                              </IconButton>
-                              <IconButton
-                                aria-label="delete"
-                                color="error"
-                                onClick={() => onEnqDelete(row._id)}
-                              >
-                                <Delete />
-                              </IconButton>
-                            </TableCell>
-                          </>
-                        ) : (
-                          <>
-                            <TableCell
-                              align="center"
-                              sx={{ display: "flex", justifyContent: "center" }}
-                              className="d-flex"
-                            >
-                              <IconButton
-                                aria-label="edit"
-                                color="inherit"
-                                onClick={() => navigate(`/viewlead/${row._id}`)}
-                              >
-                                <Visibility />
-                              </IconButton>
-                              <IconButton
-                                aria-label="edit"
-                                color="info"
-                                onClick={() => navigate(`/editlead/${row._id}`)}
-                              >
-                                <Edit />
-                              </IconButton>
-                            </TableCell>
-                          </>
-                        )}
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </TableContainer>
+              <DataGrid
+                columns={columns}
+                rows={rows}
+                initialState={{
+                  ...lead.initialState,
+                  pagination: { paginationModel: { pageSize: 6 } },
+                }}
+                pageSizeOptions={[6, 20, 30]}
+                sx={{ background: "#a9a9a914" }}
+                slots={{ toolbar: GridToolbar }}
+              />
             )}
           </Grid>
         </Grid>

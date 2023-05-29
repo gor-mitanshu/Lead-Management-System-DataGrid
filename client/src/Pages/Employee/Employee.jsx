@@ -61,7 +61,6 @@ const Employee = () => {
       const res = await axios.delete(
         `${process.env.REACT_APP_API}/api/delete-all`
       );
-      console.log(res);
       if (res && res.data.success) {
         getEmpData();
         toast.success(res.data.message);
@@ -79,24 +78,17 @@ const Employee = () => {
       headerName: "ID",
       headerClassName: "header",
       description: "ID",
-      flex: 1,
+      flex: 0,
     },
     {
-      field: "firstname",
-      headerName: "Firstname",
+      field: "name",
+      headerName: "Name",
       headerClassName: "header",
-      description: "Firstname",
+      description: "Name",
       flex: 1,
       editable: true,
     },
-    {
-      field: "lastname",
-      headerName: "Lastname",
-      headerClassName: "header",
-      description: "Lastname",
-      flex: 1,
-      editable: true,
-    },
+
     {
       field: "email",
       headerName: "Email",
@@ -143,8 +135,7 @@ const Employee = () => {
 
   const rows = emp.map((row, key) => ({
     id: key + 1,
-    firstname: row.firstname,
-    lastname: row.lastname,
+    name: row.firstname + " " + row.lastname,
     email: row.email,
     phone: row.phone,
     actions: row.actions,
@@ -168,12 +159,11 @@ const Employee = () => {
           </Typography>
           <Grid
             item
-            paddingBottom={3}
             sx={{
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
-              flexWrap: "wrap",
+              flexWrap: "wrap-reverse",
             }}
             xs={12}
           >
@@ -182,14 +172,16 @@ const Employee = () => {
               color="error"
               startIcon={<Delete />}
               onClick={onDeleteAll}
+              sx={{ marginBottom: "16px" }}
             >
-              Delete All Users
+              Delete All Employees
             </Button>
             <Link to="/addemployee" className="btn-link">
               <Button
                 variant="contained"
                 color="primary"
                 startIcon={<PersonAddAlt />}
+                sx={{ marginBottom: "16px" }}
               >
                 Add Employee
               </Button>
@@ -210,7 +202,7 @@ const Employee = () => {
                   pagination: { paginationModel: { pageSize: 5 } },
                 }}
                 pageSizeOptions={[1, 3, 5]}
-                sx={{ background: "#a9a9a942" }}
+                sx={{ background: "#a9a9a914" }}
                 slots={{ toolbar: GridToolbar }}
               />
             )}

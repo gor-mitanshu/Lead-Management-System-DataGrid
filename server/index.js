@@ -548,7 +548,32 @@ app.get('/getlead-details/:id', async (req, res) => {
     }
 })
 
-// Delete Lead
+// Delete All Leads
+app.delete("/api/delete-all", async (req, res) => {
+    try {
+        const deleteLeads = await Lead.deleteMany()
+        if (!!deleteLeads) {
+            return res.status(200).send({
+                success: true,
+                message: "Deleted Successfully",
+            })
+        } else {
+            return res.status(400).send({
+                success: false,
+                message: "Can't Delete Leads"
+            })
+        }
+    } catch (error) {
+        console.log(error)
+        return res.status(400).send({
+            success: false,
+            message: "Something went wrong",
+            error
+        })
+    }
+})
+
+// Delete Lead from Id
 app.delete('/api/deletelead/:id', async (req, res) => {
     try {
         const { id } = req.params
