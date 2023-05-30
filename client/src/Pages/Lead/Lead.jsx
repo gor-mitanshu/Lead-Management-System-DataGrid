@@ -199,7 +199,7 @@ const Lead = () => {
           onClick={() => navigate(`/viewlead/${params.row.leadId}`)}
         />,
         <GridActionsCellItem
-          icon={<Delete color={"error"} />}
+          icon={<Delete sx={{ color: "#dc3535cc !important" }} />}
           label="Delete"
           onClick={() => onLeadDelete(params.row.leadId)}
         />,
