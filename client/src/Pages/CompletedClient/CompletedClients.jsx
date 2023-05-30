@@ -68,6 +68,9 @@ const Clients = () => {
     }
   };
 
+  // const onChangeRow = (params) => {
+  //   console.log(params);
+  // };
   const columns = [
     {
       field: "id",
@@ -83,6 +86,8 @@ const Clients = () => {
       description: "Name",
       flex: 1,
       editable: true,
+      // valueGetter: onChangeRow,
+      // valueParser: onChangeRow,
     },
 
     {

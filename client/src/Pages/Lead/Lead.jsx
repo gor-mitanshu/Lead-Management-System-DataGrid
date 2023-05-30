@@ -1,5 +1,13 @@
-import { Delete, Edit, PersonAddAlt, Visibility } from "@mui/icons-material";
-import { Button, Grid, Typography } from "@mui/material";
+import {
+  Clear,
+  Delete,
+  DoneAllOutlined,
+  Edit,
+  Pending,
+  PersonAddAlt,
+  Visibility,
+} from "@mui/icons-material";
+import { Button, Chip, Grid, Typography } from "@mui/material";
 import Loader from "../Loader";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
@@ -103,7 +111,7 @@ const Lead = () => {
       headerName: "Name",
       headerClassName: "header",
       description: "Name",
-      flex: 1,
+      flex: 0.8,
       editable: true,
     },
 
@@ -112,7 +120,7 @@ const Lead = () => {
       headerName: "Email",
       headerClassName: "header",
       description: "Email",
-      flex: 1,
+      flex: 1.2,
       editable: true,
     },
     {
@@ -120,7 +128,7 @@ const Lead = () => {
       headerName: "Phone",
       headerClassName: "header",
       description: "Contact",
-      flex: 1,
+      flex: 0.8,
       editable: true,
     },
     {
@@ -128,7 +136,7 @@ const Lead = () => {
       headerName: "Assign",
       headerClassName: "header",
       description: "Assigned to particular Employee",
-      flex: 1,
+      flex: 0.8,
       editable: true,
     },
     {
@@ -136,14 +144,45 @@ const Lead = () => {
       headerName: "Status",
       headerClassName: "header",
       description: "Status of the Lead",
-      flex: 1,
+      flex: 1.2,
+      renderCell: (params) => {
+        return (
+          <Chip
+            icon={
+              params.row.status === "PENDING" ? (
+                <Pending />
+              ) : params.row.status === "COMPLETED" ? (
+                <DoneAllOutlined />
+              ) : params.row.status === "REJECTED" ? (
+                <Clear />
+              ) : (
+                ""
+              )
+            }
+            label={params.row.status}
+            variant={"contained"}
+            size="medium"
+            sx={{ width: "130px" }}
+            className={
+              params.row.status === "PENDING"
+                ? "pending"
+                : params.row.status === "COMPLETED"
+                ? "accepted"
+                : params.row.status === "REJECTED"
+                ? "rejected"
+                : ""
+            }
+            color="info"
+          />
+        );
+      },
     },
     {
       field: "lead",
       headerName: "Lead",
       headerClassName: "header",
       description: "Lead Information",
-      flex: 1,
+      flex: 1.3,
     },
     {
       field: "actions",
