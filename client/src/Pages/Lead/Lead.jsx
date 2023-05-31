@@ -46,7 +46,6 @@ const Lead = () => {
       .then((response) => {
         if (response.status === 200) {
           setLoading(false);
-          console.log(response.data.data);
           setLead(response.data.data);
         }
       })
@@ -110,7 +109,6 @@ const Lead = () => {
   };
 
   const onRowUpdate = async (newRowLead) => {
-    console.log(newRowLead);
     try {
       const body = {
         firstname: newRowLead.name.split(" ").slice(0, -1).join(" "),
@@ -138,6 +136,7 @@ const Lead = () => {
     const updatedRow = { ...newRowLead, isNew: false };
     return updatedRow;
   };
+
   const columns = [
     {
       field: "id",
