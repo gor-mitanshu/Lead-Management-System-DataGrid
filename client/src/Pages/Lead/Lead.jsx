@@ -7,7 +7,7 @@ import {
   PersonAddAlt,
   Visibility,
 } from "@mui/icons-material";
-import { Button, Chip, Grid, Typography } from "@mui/material";
+import { Button, Checkbox, Chip, Grid, Typography } from "@mui/material";
 import Loader from "../Loader";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
@@ -16,11 +16,20 @@ import { toast } from "react-toastify";
 import { DataGrid, GridActionsCellItem, GridToolbar } from "@mui/x-data-grid";
 
 const Lead = () => {
+  const navigate = useNavigate();
   const [id, setId] = useState();
   const [role, setRole] = useState();
   const [lead, setLead] = useState([]);
+  const [checkedRows, setCheckedRows] = useState([]);
   const [isloading, setLoading] = useState(false);
-  const navigate = useNavigate();
+
+  const handleCheckboxChange = (event, row) => {
+    if (event.target.checked) {
+      setCheckedRows([...checkedRows, row._id]);
+    } else {
+      setCheckedRows(checkedRows.filter((id) => id !== row._id));
+    }
+  };
 
   const getEmpLead = async () => {
     await axios
@@ -37,6 +46,7 @@ const Lead = () => {
       .then((response) => {
         if (response.status === 200) {
           setLoading(false);
+          console.log(response.data.data);
           setLead(response.data.data);
         }
       })
@@ -98,6 +108,36 @@ const Lead = () => {
       toast.error(error.data.message);
     }
   };
+
+  const onRowUpdate = async (newRowLead) => {
+    console.log(newRowLead);
+    try {
+      const body = {
+        firstname: newRowLead.name.split(" ").slice(0, -1).join(" "),
+        lastname: newRowLead.name.split(" ").slice(-1).join(" "),
+        email: newRowLead.email,
+        phone: newRowLead.phone,
+        company: newRowLead.company,
+        enquiry: newRowLead.enquiry,
+        assign: newRowLead.assign,
+        status: newRowLead.status,
+      };
+      const res = await axios.put(
+        `${process.env.REACT_APP_API}/api/updatelead/${newRowLead.leadId}`,
+        body
+      );
+      if (res && res.data.success) {
+        toast.success(res.data.message);
+      } else {
+        toast.error(res.data.message);
+      }
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+
+    const updatedRow = { ...newRowLead, isNew: false };
+    return updatedRow;
+  };
   const columns = [
     {
       field: "id",
@@ -105,6 +145,7 @@ const Lead = () => {
       headerClassName: "header",
       description: "ID",
       flex: 0,
+      editable: false,
     },
     {
       field: "name",
@@ -132,12 +173,12 @@ const Lead = () => {
       editable: true,
     },
     {
-      field: "assign",
+      field: "employeename",
       headerName: "Assign",
       headerClassName: "header",
       description: "Assigned to particular Employee",
       flex: 0.8,
-      editable: true,
+      editable: false,
     },
     {
       field: "status",
@@ -217,7 +258,8 @@ const Lead = () => {
     name: row.firstname + " " + row.lastname,
     email: row.email,
     phone: row.phone,
-    assign: row.employeename,
+    assign: row.assign,
+    employeename: row.employeename,
     status: row.status,
     actions: row.actions,
     lead: row.enquiry,
@@ -302,6 +344,20 @@ const Lead = () => {
                 pageSizeOptions={[6, 20, 30]}
                 sx={{ background: "#a9a9a914" }}
                 slots={{ toolbar: GridToolbar }}
+                checkboxSelection
+                onSelectionModelChange={(newSelection) => {
+                  setCheckedRows(newSelection.selectionModel);
+                }}
+                components={{
+                  Checkbox: ({ row }) => (
+                    <Checkbox
+                      checked={checkedRows.includes(row._id)}
+                      onChange={(event) => handleCheckboxChange(event, row)}
+                    />
+                  ),
+                }}
+                processRowUpdate={onRowUpdate}
+                experimentalFeatures={{ newEditingApi: true }}
               />
             )}
           </Grid>
