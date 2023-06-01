@@ -7,7 +7,7 @@ import {
   PersonAddAlt,
   Visibility,
 } from "@mui/icons-material";
-import { Button, Checkbox, Chip, Grid, Typography } from "@mui/material";
+import { Button, Chip, Grid, Typography } from "@mui/material";
 import Loader from "../Loader";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
@@ -20,16 +20,9 @@ const Lead = () => {
   const [id, setId] = useState();
   const [role, setRole] = useState();
   const [lead, setLead] = useState([]);
-  const [checkedRows, setCheckedRows] = useState([]);
   const [isloading, setLoading] = useState(false);
-
-  const handleCheckboxChange = (event, row) => {
-    if (event.target.checked) {
-      setCheckedRows([...checkedRows, row._id]);
-    } else {
-      setCheckedRows(checkedRows.filter((id) => id !== row._id));
-    }
-  };
+  const [selectedFile, setSelectedFile] = useState([]);
+  const [checkboxSelection, setCheckboxSelection] = useState(true);
 
   const getEmpLead = async () => {
     await axios
@@ -105,6 +98,24 @@ const Lead = () => {
       }
     } catch (error) {
       toast.error(error.data.message);
+    }
+  };
+
+  const onDeleteSelectedRow = async () => {
+    const uData = lead.filter((e, index) => selectedFile.includes(index + 1));
+    const Data = uData.map((element) => {
+      return element._id;
+    });
+    const body = Data;
+    const res = await axios.post(
+      `${process.env.REACT_APP_API}/api/deleteselectedIds`,
+      body
+    );
+    if (res && res.data.success) {
+      getLeadData();
+      toast.success(res.data.message);
+    } else {
+      toast.error(res.data.message);
     }
   };
 
@@ -308,16 +319,32 @@ const Lead = () => {
                     color="error"
                     startIcon={<Delete />}
                     onClick={onDeleteAll}
-                    sx={{ marginBottom: "16px" }}
+                    sx={{
+                      mb: 2,
+                      // backgroundColor: "#dc3535cc !important",
+                    }}
                   >
-                    Delete All Leads
+                    Delete All Employee
                   </Button>
-                  <Link to="/addemployee" className="btn-link">
+
+                  <Button
+                    variant="contained"
+                    color="error"
+                    startIcon={<Delete />}
+                    sx={{
+                      mb: 2,
+                      // backgroundColor: "#dc3535cc !important",
+                    }}
+                    onClick={onDeleteSelectedRow}
+                  >
+                    Delete Selected Employee
+                  </Button>
+
+                  <Link to={"add"}>
                     <Button
                       variant="contained"
-                      color="primary"
                       startIcon={<PersonAddAlt />}
-                      sx={{ marginBottom: "16px" }}
+                      sx={{ mb: 2 }}
                     >
                       Add Employee
                     </Button>
@@ -333,31 +360,36 @@ const Lead = () => {
                 <h1>* NO Lead DATA FOUND...</h1>
               </div>
             ) : (
-              <DataGrid
-                columns={columns}
-                rows={rows}
-                initialState={{
-                  ...lead.initialState,
-                  pagination: { paginationModel: { pageSize: 6 } },
-                }}
-                pageSizeOptions={[6, 20, 30]}
-                sx={{ background: "#a9a9a914" }}
-                slots={{ toolbar: GridToolbar }}
-                checkboxSelection
-                onSelectionModelChange={(newSelection) => {
-                  setCheckedRows(newSelection.selectionModel);
-                }}
-                components={{
-                  Checkbox: ({ row }) => (
-                    <Checkbox
-                      checked={checkedRows.includes(row._id)}
-                      onChange={(event) => handleCheckboxChange(event, row)}
-                    />
-                  ),
-                }}
-                processRowUpdate={onRowUpdate}
-                experimentalFeatures={{ newEditingApi: true }}
-              />
+              <>
+                <Grid>
+                  <Button
+                    sx={{ mb: 2 }}
+                    variant="contained"
+                    color="inherit"
+                    onClick={() => setCheckboxSelection(!checkboxSelection)}
+                  >
+                    Toggle checkbox selection
+                  </Button>
+                  <DataGrid
+                    rows={rows}
+                    columns={columns}
+                    autoHeight
+                    slots={{ toolbar: GridToolbar }}
+                    sx={{ background: "#a9a9a942" }}
+                    initialState={{
+                      ...lead.initialState,
+                      pagination: { paginationModel: { pageSize: 6 } },
+                    }}
+                    pageSizeOptions={[6, 20, 30]}
+                    processRowUpdate={onRowUpdate}
+                    experimentalFeatures={{ newEditingApi: true }}
+                    checkboxSelection={checkboxSelection}
+                    onRowSelectionModelChange={(selectionModel) => {
+                      setSelectedFile(selectionModel);
+                    }}
+                  />
+                </Grid>
+              </>
             )}
           </Grid>
         </Grid>

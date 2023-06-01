@@ -600,6 +600,31 @@ app.delete('/api/deletelead/:id', async (req, res) => {
     }
 })
 
+// delete by selection of selected checkbox
+app.post('/api/deleteselectedIds', async (req, res) => {
+    try {
+        const deleteUser = await Lead.deleteMany({ _id: { $in: req.body } })
+        if (!!deleteUser) {
+            return res.status(200).send({
+                success: true,
+                message: "Row Deleted Successfully",
+            })
+        } else {
+            return res.status(400).send({
+                success: false,
+                message: "Can't Delete Row"
+            })
+        }
+    } catch (error) {
+        console.log(error)
+        return res.status(400).send({
+            success: false,
+            message: "Something Went Wrong",
+            error
+        })
+    }
+})
+
 // Get enquiry by employee id
 app.get('/getemplead/:id', async (req, res) => {
     try {

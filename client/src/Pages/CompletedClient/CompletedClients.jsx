@@ -68,9 +68,6 @@ const Clients = () => {
     }
   };
 
-  // const onChangeRow = (params) => {
-  //   console.log(params);
-  // };
   const columns = [
     {
       field: "id",
