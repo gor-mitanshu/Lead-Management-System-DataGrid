@@ -13,7 +13,12 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { DataGrid, GridActionsCellItem, GridToolbar } from "@mui/x-data-grid";
+import {
+  DataGrid,
+  GridActionsCellItem,
+  GridMenuIcon,
+  GridToolbar,
+} from "@mui/x-data-grid";
 
 const Lead = () => {
   const navigate = useNavigate();
@@ -22,7 +27,7 @@ const Lead = () => {
   const [lead, setLead] = useState([]);
   const [isloading, setLoading] = useState(false);
   const [selectedFile, setSelectedFile] = useState([]);
-  const [checkboxSelection, setCheckboxSelection] = useState(true);
+  const [checkboxSelection, setCheckboxSelection] = useState(false);
 
   const getEmpLead = async () => {
     await axios
@@ -113,6 +118,7 @@ const Lead = () => {
     );
     if (res && res.data.success) {
       getLeadData();
+      setCheckboxSelection(false);
       toast.success(res.data.message);
     } else {
       toast.error(res.data.message);
@@ -320,7 +326,7 @@ const Lead = () => {
                     startIcon={<Delete />}
                     onClick={onDeleteAll}
                     sx={{
-                      mb: 2,
+                      mb: 3,
                       // backgroundColor: "#dc3535cc !important",
                     }}
                   >
@@ -332,7 +338,7 @@ const Lead = () => {
                     color="error"
                     startIcon={<Delete />}
                     sx={{
-                      mb: 2,
+                      mb: 3,
                       // backgroundColor: "#dc3535cc !important",
                     }}
                     onClick={onDeleteSelectedRow}
@@ -344,7 +350,7 @@ const Lead = () => {
                     <Button
                       variant="contained"
                       startIcon={<PersonAddAlt />}
-                      sx={{ mb: 2 }}
+                      sx={{ mb: 3 }}
                     >
                       Add Employee
                     </Button>
@@ -355,42 +361,32 @@ const Lead = () => {
           </Grid>
 
           <Grid item lg={12} sm={12} xs={11}>
-            {lead.length <= 0 ? (
-              <div style={{ textAlign: "center", color: "red" }}>
-                <h1>* NO Lead DATA FOUND...</h1>
-              </div>
-            ) : (
-              <>
-                <Grid>
-                  <Button
-                    sx={{ mb: 2 }}
-                    variant="contained"
-                    color="inherit"
-                    onClick={() => setCheckboxSelection(!checkboxSelection)}
-                  >
-                    Toggle checkbox selection
-                  </Button>
-                  <DataGrid
-                    rows={rows}
-                    columns={columns}
-                    autoHeight
-                    slots={{ toolbar: GridToolbar }}
-                    sx={{ background: "#a9a9a942" }}
-                    initialState={{
-                      ...lead.initialState,
-                      pagination: { paginationModel: { pageSize: 6 } },
-                    }}
-                    pageSizeOptions={[6, 20, 30]}
-                    processRowUpdate={onRowUpdate}
-                    experimentalFeatures={{ newEditingApi: true }}
-                    checkboxSelection={checkboxSelection}
-                    onRowSelectionModelChange={(selectionModel) => {
-                      setSelectedFile(selectionModel);
-                    }}
-                  />
-                </Grid>
-              </>
-            )}
+            <GridMenuIcon
+              sx={{ mb: 0 }}
+              variant="contained"
+              color="inherit"
+              onClick={() => setCheckboxSelection(!checkboxSelection)}
+            />
+
+            <DataGrid
+              rows={rows}
+              columns={columns}
+              autoHeight
+              slots={{ toolbar: GridToolbar }}
+              sx={{ background: "#a9a9a942" }}
+              initialState={{
+                ...lead.initialState,
+                pagination: { paginationModel: { pageSize: 6 } },
+              }}
+              pageSizeOptions={[6, 20, 30]}
+              processRowUpdate={onRowUpdate}
+              experimentalFeatures={{ newEditingApi: true }}
+              checkboxSelection={checkboxSelection}
+              onRowSelectionModelChange={(selectionModel) => {
+                setSelectedFile(selectionModel);
+              }}
+              disableSelectionOnClick={checkboxSelection}
+            />
           </Grid>
         </Grid>
       )}
