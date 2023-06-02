@@ -92,7 +92,7 @@ const Lead = () => {
 
   const onDeleteAll = async () => {
     try {
-      const res = await axios.delete(
+      const res = await axios.post(
         `${process.env.REACT_APP_API}/api/delete-all`
       );
       if (res && res.data.success) {
@@ -330,7 +330,7 @@ const Lead = () => {
                       // backgroundColor: "#dc3535cc !important",
                     }}
                   >
-                    Delete All Employee
+                    Delete All Leads
                   </Button>
 
                   <Button
@@ -343,7 +343,7 @@ const Lead = () => {
                     }}
                     onClick={onDeleteSelectedRow}
                   >
-                    Delete Selected Employee
+                    Delete Selected Lead
                   </Button>
 
                   <Link to={"add"}>

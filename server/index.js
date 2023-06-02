@@ -549,7 +549,7 @@ app.get('/getlead-details/:id', async (req, res) => {
 })
 
 // Delete All Leads
-app.delete("/api/delete-all", async (req, res) => {
+app.post("/api/delete-all", async (req, res) => {
     try {
         const deleteLeads = await Lead.deleteMany()
         if (!!deleteLeads) {
