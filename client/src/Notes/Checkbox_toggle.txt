@@ -136,7 +136,6 @@ const Lead = () => {
   };
 
   const onRowUpdate = async (newRowLead) => {
-    console.log(newRowLead);
     try {
       if (!(newRowLead.firstname + " " + newRowLead.lastname)) {
         toast.error("Please Enter Name");
