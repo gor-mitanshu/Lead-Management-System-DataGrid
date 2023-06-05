@@ -20,8 +20,9 @@ import Loader from "../Loader";
 
 const EditLead = () => {
   const [emp, setEmp] = useState([]);
-  const [status, setStatus] = useState([]);
   const [isloading, setLoading] = useState(false);
+  const [status, setStatus] = useState([]);
+
   const getEmpData = async () => {
     await axios
       .get(`${process.env.REACT_APP_API}/api/getemployees`)

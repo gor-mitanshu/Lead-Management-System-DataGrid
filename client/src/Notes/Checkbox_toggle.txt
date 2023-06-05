@@ -1,13 +1,5 @@
-import {
-  Clear,
-  Delete,
-  DoneAllOutlined,
-  Edit,
-  Pending,
-  PersonAddAlt,
-  Visibility,
-} from "@mui/icons-material";
-import { Button, Chip, Grid, Typography } from "@mui/material";
+import { Delete, Edit, PersonAddAlt, Visibility } from "@mui/icons-material";
+import { Button, Grid, MenuItem, Select, Typography } from "@mui/material";
 import Loader from "../Loader";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
@@ -28,6 +20,29 @@ const Lead = () => {
   const [isloading, setLoading] = useState(false);
   const [selectedFile, setSelectedFile] = useState([]);
   const [checkboxSelection, setCheckboxSelection] = useState(false);
+  const [emp, setEmp] = useState([]);
+  const [status, setStatus] = useState([]);
+
+  const getEmpData = async () => {
+    await axios
+      .get(`${process.env.REACT_APP_API}/api/getemployees`)
+      .then((response) => {
+        if (response.status === 200) {
+          setLoading(false);
+          setEmp(response.data.data);
+        }
+      })
+      .catch((error) => {
+        toast.error(error.message);
+      });
+  };
+  useEffect(() => {
+    setLoading(true);
+    setStatus(["PENDING", "REJECTED", "COMPLETED"]);
+    setTimeout(() => {
+      getEmpData();
+    }, 650);
+  }, []);
 
   const getEmpLead = async () => {
     await axios
@@ -48,12 +63,7 @@ const Lead = () => {
         }
       })
       .catch((error) => {
-        if (error?.response.status === 400) {
-          return <h1>Data Not Found</h1>;
-        }
-        if (error?.response.status === 404) {
-          console.log(error.response.data.message);
-        }
+        toast.error(error.message);
       });
   };
   useEffect(() => {
@@ -223,6 +233,26 @@ const Lead = () => {
       description: "Assigned to particular Employee",
       flex: 0.8,
       editable: false,
+      renderCell: (params) => {
+        return (
+          <Select
+            sx={{ width: "100px" }}
+            disabled={role === "admin" ? false : true}
+            labelId="workExp"
+            label="Work Experience"
+            className="text-start"
+            name="assign"
+            value={params.row.assign}
+            onChange={onRowUpdate}
+          >
+            {emp.map((row, index) => (
+              <MenuItem value={row._id} key={index}>
+                {row.firstname}
+              </MenuItem>
+            ))}
+          </Select>
+        );
+      },
     },
     {
       field: "status",
@@ -232,33 +262,21 @@ const Lead = () => {
       flex: 1.2,
       renderCell: (params) => {
         return (
-          <Chip
-            icon={
-              params.row.status === "PENDING" ? (
-                <Pending />
-              ) : params.row.status === "COMPLETED" ? (
-                <DoneAllOutlined />
-              ) : params.row.status === "REJECTED" ? (
-                <Clear />
-              ) : (
-                ""
-              )
-            }
-            label={params.row.status}
-            variant={"contained"}
-            size="medium"
-            sx={{ width: "130px" }}
-            className={
-              params.row.status === "PENDING"
-                ? "pending"
-                : params.row.status === "COMPLETED"
-                ? "accepted"
-                : params.row.status === "REJECTED"
-                ? "rejected"
-                : ""
-            }
-            color="info"
-          />
+          <Select
+            sx={{ width: "150px" }}
+            labelId="workExp"
+            label="Work Experience"
+            className="text-start"
+            name="status"
+            value={params.row.status}
+            onChange={onRowUpdate}
+          >
+            {status.map((row, index) => (
+              <MenuItem value={row} key={index}>
+                {row}
+              </MenuItem>
+            ))}
+          </Select>
         );
       },
     },
