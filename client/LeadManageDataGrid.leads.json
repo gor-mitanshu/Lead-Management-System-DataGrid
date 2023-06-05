@@ -1,0 +1,440 @@
+[{
+  "_id": {
+    "$oid": "645a0f0a426c9988ddaf0fdc"
+  },
+  "firstname": " Shivam",
+  "lastname": "Shastrie",
+  "email": "shivam@gmail.com",
+  "phone": 1234567891,
+  "company": "Shivam",
+  "enquiry": "Shivam Shastrie Enterprise",
+  "assign": "6454c0da810e0e3a6dfbb4ab",
+  "employeename": "Jiten Patel",
+  "role": "enquiry",
+  "status": "COMPLETED",
+  "createdAt": {
+    "$date": "2023-03-09T09:14:50.296Z"
+  },
+  "updatedAt": {
+    "$date": "2023-06-05T06:58:03.465Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "645a0f3c426c9988ddaf0fea"
+  },
+  "firstname": "Parth",
+  "lastname": "Patel",
+  "email": "parth@gmail.com",
+  "phone": 1234567892,
+  "company": "BrainSquare",
+  "enquiry": "Parth Enterpirse",
+  "assign": "6454c0e9810e0e3a6dfbb4af",
+  "employeename": "Dhruv Patel",
+  "role": "enquiry",
+  "status": "REJECTED",
+  "createdAt": {
+    "$date": "2023-03-09T09:15:40.044Z"
+  },
+  "updatedAt": {
+    "$date": "2023-06-05T05:37:19.685Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "645a0f6c426c9988ddaf0ffa"
+  },
+  "firstname": "Nilesh",
+  "lastname": "Lagdaniya",
+  "email": "nilesh@gmail.com",
+  "phone": 1234567893,
+  "company": "BrainSquare",
+  "enquiry": "Nilesh Enterprise",
+  "assign": "6454c0fc810e0e3a6dfbb4b3",
+  "employeename": "Meet Patel",
+  "role": "enquiry",
+  "status": "COMPLETED",
+  "createdAt": {
+    "$date": "2023-04-10T09:16:28.304Z"
+  },
+  "updatedAt": {
+    "$date": "2023-06-05T05:34:28.394Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "645a0fa5426c9988ddaf1008"
+  },
+  "firstname": "Sanjay",
+  "lastname": "Gor",
+  "email": "sanjay@gmail.com",
+  "phone": 1234567894,
+  "company": "Sanjay PVT.LTD",
+  "enquiry": "Sanjay Group of Enterprise",
+  "assign": "6454c0da810e0e3a6dfbb4ab",
+  "employeename": "Jiten Patel",
+  "role": "enquiry",
+  "status": "PENDING",
+  "createdAt": {
+    "$date": "2023-04-10T09:17:25.754Z"
+  },
+  "updatedAt": {
+    "$date": "2023-06-05T05:37:18.161Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "645a0fd3426c9988ddaf1016"
+  },
+  "firstname": "Purvang",
+  "lastname": "Gor",
+  "email": "purvang@gmail.com",
+  "phone": 1234567895,
+  "company": "Purvang Pvt.Ltd",
+  "enquiry": "Purvang Enterprise",
+  "assign": "6454c0e9810e0e3a6dfbb4af",
+  "employeename": "Dhruv Patel",
+  "role": "enquiry",
+  "status": "PENDING",
+  "createdAt": {
+    "$date": "2023-05-09T09:18:11.179Z"
+  },
+  "updatedAt": {
+    "$date": "2023-06-05T05:35:10.187Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "645a1158de075dbd4fa1ce07"
+  },
+  "firstname": "Mitanshu",
+  "lastname": "Gor",
+  "email": "mitanshu@gmail.com",
+  "phone": 1234567896,
+  "company": "BrainSquare",
+  "enquiry": "Mitanshu Enterprise",
+  "assign": "6454c0fc810e0e3a6dfbb4b3",
+  "employeename": "Meet Patel",
+  "role": "enquiry",
+  "status": "COMPLETED",
+  "createdAt": {
+    "$date": "2023-05-09T09:24:40.802Z"
+  },
+  "updatedAt": {
+    "$date": "2023-06-05T05:35:13.865Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "645a1195de075dbd4fa1ce1a"
+  },
+  "firstname": "Mittan",
+  "lastname": "Gor",
+  "email": "mittan@gmail.com",
+  "phone": 1234567897,
+  "company": "Sanjay PVT.LTD",
+  "enquiry": "Mittan Enterprise",
+  "assign": "6454c0da810e0e3a6dfbb4ab",
+  "employeename": "Jiten Patel",
+  "role": "enquiry",
+  "status": "PENDING",
+  "createdAt": {
+    "$date": "2023-06-09T09:25:41.846Z"
+  },
+  "updatedAt": {
+    "$date": "2023-06-05T05:36:25.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "645a1222de075dbd4fa1ce40"
+  },
+  "firstname": "Urvil",
+  "lastname": "Barot",
+  "email": "urvil@gmail.com",
+  "phone": 1234567898,
+  "company": "AAKASH PVT.LTD",
+  "enquiry": "Urvil Enterprise",
+  "assign": "6454c0e9810e0e3a6dfbb4af",
+  "employeename": "Dhruv Patel",
+  "role": "enquiry",
+  "status": "PENDING",
+  "createdAt": {
+    "$date": "2023-06-09T09:28:02.929Z"
+  },
+  "updatedAt": {
+    "$date": "2023-06-05T05:36:29.371Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "645a125fde075dbd4fa1ce4e"
+  },
+  "firstname": "Krupansh",
+  "lastname": "Barot",
+  "email": "krupansh@gmail.com",
+  "phone": 1234567899,
+  "company": "AAKASH PVT.LTD",
+  "enquiry": "Krupansh Enterprise",
+  "assign": "6454c0fc810e0e3a6dfbb4b3",
+  "employeename": "Meet Patel",
+  "role": "enquiry",
+  "status": "PENDING",
+  "createdAt": {
+    "$date": "2023-06-09T09:29:03.089Z"
+  },
+  "updatedAt": {
+    "$date": "2023-06-05T05:36:33.772Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "645a12c7de075dbd4fa1ce74"
+  },
+  "firstname": "Aakash",
+  "lastname": "Gadhavi",
+  "email": "aakash@gmail.com",
+  "phone": 1234567890,
+  "company": "AAKASH PVT.LTD",
+  "enquiry": "Aakash Enterprise",
+  "assign": "6454c0da810e0e3a6dfbb4ab",
+  "employeename": "Jiten Patel",
+  "role": "enquiry",
+  "status": "COMPLETED",
+  "createdAt": {
+    "$date": "2023-05-09T09:30:47.253Z"
+  },
+  "updatedAt": {
+    "$date": "2023-05-18T05:38:36.329Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "645a1355de075dbd4fa1ce8d"
+  },
+  "firstname": "Rahul",
+  "lastname": "Jain",
+  "email": "rahul@gmail.com",
+  "phone": 1234567980,
+  "company": "AAKASH PVT.LTD",
+  "enquiry": "Rahul Enterprise",
+  "assign": "6454c0e9810e0e3a6dfbb4af",
+  "employeename": "Dhruv Patel",
+  "role": "enquiry",
+  "status": "PENDING",
+  "createdAt": {
+    "$date": "2023-05-09T09:33:09.442Z"
+  },
+  "updatedAt": {
+    "$date": "2023-05-09T09:53:42.032Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "645a1380de075dbd4fa1ce9b"
+  },
+  "firstname": "Prem",
+  "lastname": "Sharma",
+  "email": "prem@gmail.com",
+  "phone": 1234567890,
+  "company": "AAKASH PVT.LTD",
+  "enquiry": "Prem ENterprise",
+  "assign": "6454c0fc810e0e3a6dfbb4b3",
+  "employeename": "Meet Patel",
+  "role": "enquiry",
+  "status": "PENDING",
+  "createdAt": {
+    "$date": "2023-05-09T09:33:52.544Z"
+  },
+  "updatedAt": {
+    "$date": "2023-05-12T10:51:20.280Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "645a15bbf9e88d3161928707"
+  },
+  "firstname": "Nilang",
+  "lastname": "Patel",
+  "email": "nilang@gmail.com",
+  "phone": 1234567890,
+  "company": "AAKASH PVT.LTD",
+  "enquiry": "Nilang ENterprise",
+  "assign": "6454c0da810e0e3a6dfbb4ab",
+  "employeename": "Jiten Patel",
+  "role": "enquiry",
+  "status": "REJECTED",
+  "createdAt": {
+    "$date": "2023-04-04T09:33:52.544Z"
+  },
+  "updatedAt": {
+    "$date": "2023-05-18T05:38:45.362Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "645a1604de075dbd4fa1cec9"
+  },
+  "firstname": "Hitesh",
+  "lastname": "Gadhavi",
+  "email": "hitesh@gmail.com",
+  "phone": 1234567890,
+  "company": "AAKASH PVT.LTD",
+  "enquiry": "Hitesh ENterPrise",
+  "assign": "6454c0e9810e0e3a6dfbb4af",
+  "employeename": "Dhruv Patel",
+  "role": "enquiry",
+  "status": "COMPLETED",
+  "createdAt": {
+    "$date": "2023-05-09T09:44:36.864Z"
+  },
+  "updatedAt": {
+    "$date": "2023-05-17T12:33:45.236Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "645a1658de075dbd4fa1cedb"
+  },
+  "firstname": "Kamal",
+  "lastname": "Joshi",
+  "email": "kamal@gmail.com",
+  "phone": 1234567890,
+  "company": "Sanjay PVT.LTD",
+  "enquiry": "Kamal EnterPrise",
+  "assign": "6454c0fc810e0e3a6dfbb4b3",
+  "employeename": "Meet Patel",
+  "role": "enquiry",
+  "status": "PENDING",
+  "createdAt": {
+    "$date": "2023-05-09T09:46:00.283Z"
+  },
+  "updatedAt": {
+    "$date": "2023-05-09T09:46:00.283Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "645a1694de075dbd4fa1ceee"
+  },
+  "firstname": "Naval",
+  "lastname": "Surti",
+  "email": "naval@gmail.com",
+  "phone": 1234567890,
+  "company": "Sanjay PVT.LTD",
+  "enquiry": "Naval Enterprise",
+  "assign": "6454c0da810e0e3a6dfbb4ab",
+  "employeename": "Jiten Patel",
+  "role": "enquiry",
+  "status": "PENDING",
+  "createdAt": {
+    "$date": "2023-05-09T09:47:00.797Z"
+  },
+  "updatedAt": {
+    "$date": "2023-05-09T09:47:00.797Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "645a16d3de075dbd4fa1cf01"
+  },
+  "firstname": "Om",
+  "lastname": "Surti",
+  "email": "om@gmail.com",
+  "phone": 1234567890,
+  "company": "Prem PVT.LTD",
+  "enquiry": "Naval enterprise",
+  "assign": "6454c0e9810e0e3a6dfbb4af",
+  "employeename": "Dhruv Patel",
+  "role": "enquiry",
+  "status": "PENDING",
+  "createdAt": {
+    "$date": "2023-05-09T09:48:03.603Z"
+  },
+  "updatedAt": {
+    "$date": "2023-05-09T09:48:03.603Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "645a1708de075dbd4fa1cf0f"
+  },
+  "firstname": "Viraj",
+  "lastname": "Surti",
+  "email": "viraj@gmail.com",
+  "phone": 1234567890,
+  "company": "Harshil PVT.LTD",
+  "enquiry": "Viraj Enterprise",
+  "assign": "6454c0fc810e0e3a6dfbb4b3",
+  "employeename": "Meet Patel",
+  "role": "enquiry",
+  "status": "REJECTED",
+  "createdAt": {
+    "$date": "2023-05-09T09:48:56.062Z"
+  },
+  "updatedAt": {
+    "$date": "2023-05-17T06:10:26.686Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "645b3d9928384a54c17ecbb3"
+  },
+  "firstname": "Heertarth",
+  "lastname": "Joshi",
+  "email": "heertarth@gmail.com",
+  "phone": 1234567890,
+  "company": "Sanjay PVT.LTD",
+  "enquiry": "Heertarth Enterprise",
+  "assign": "6454c0da810e0e3a6dfbb4ab",
+  "employeename": "Jiten Patel",
+  "role": "enquiry",
+  "status": "PENDING",
+  "createdAt": {
+    "$date": "2023-05-10T06:45:45.627Z"
+  },
+  "updatedAt": {
+    "$date": "2023-05-10T06:45:45.627Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "647483f6aacafc33f541ba26"
+  },
+  "firstname": "Mitanshu",
+  "lastname": "Gor",
+  "email": "gg@gmail.com",
+  "phone": 1234567890,
+  "company": "BrainSquare",
+  "enquiry": " dc jkdsnjdsnvodsnvokscnvk;ds",
+  "assign": "6454c0e9810e0e3a6dfbb4af",
+  "employeename": "Dhruv Patel",
+  "role": "enquiry",
+  "status": "PENDING",
+  "createdAt": {
+    "$date": "2023-05-29T10:52:38.362Z"
+  },
+  "updatedAt": {
+    "$date": "2023-05-29T10:52:38.362Z"
+  },
+  "__v": 0
+}]

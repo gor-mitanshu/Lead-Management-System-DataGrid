@@ -501,7 +501,13 @@ const Lead = () => {
 
             <DataGrid
               rows={rows}
-              columns={role === "admin" ? adminColumns : employeeColumns}
+              columns={
+                role === "admin"
+                  ? adminColumns
+                  : role === "employee"
+                  ? employeeColumns
+                  : null
+              }
               autoHeight
               slots={{ toolbar: GridToolbar }}
               sx={{ background: "#a9a9a942" }}

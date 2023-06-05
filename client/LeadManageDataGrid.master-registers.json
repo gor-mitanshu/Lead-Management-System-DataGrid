@@ -1,0 +1,79 @@
+[{
+  "_id": {
+    "$oid": "644641a08b8999ea6c6b7560"
+  },
+  "firstname": "Admin",
+  "lastname": "Admin",
+  "email": "admin@gmail.com",
+  "phone": 1234567890,
+  "password": "$2b$10$AOuHZjfi7lcEhYGWAGptme65Y.ch5XfQqis.rdh.vhqYrXJ.9YG9O",
+  "key": "Key",
+  "role": "admin",
+  "createdAt": {
+    "$date": "2023-04-24T08:45:20.328Z"
+  },
+  "updatedAt": {
+    "$date": "2023-05-18T08:46:58.751Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6454c0da810e0e3a6dfbb4ab"
+  },
+  "firstname": "Jiten",
+  "lastname": "Patel",
+  "email": "jiten@gmail.com",
+  "phone": {
+    "$numberLong": "7894561230"
+  },
+  "password": "$2b$10$FjoLEsZ3ik..NdCYowC4ZuCPpTTqXMpiI0H9clqLADs30/IhoHdye",
+  "role": "employee",
+  "createdAt": {
+    "$date": "2023-05-05T08:39:54.995Z"
+  },
+  "updatedAt": {
+    "$date": "2023-05-17T08:19:19.215Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6454c0e9810e0e3a6dfbb4af"
+  },
+  "firstname": "Dhruv",
+  "lastname": "Patel",
+  "email": "dhruv@gmail.com",
+  "phone": {
+    "$numberLong": "7418529630"
+  },
+  "password": "$2b$10$KByJgmDBPA7ivvdzUwxNl.uzKFz5TSs/9B3khEP7/lkwykoRCqJPK",
+  "role": "employee",
+  "createdAt": {
+    "$date": "2023-05-05T08:40:09.917Z"
+  },
+  "updatedAt": {
+    "$date": "2023-05-21T10:03:38.117Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6454c0fc810e0e3a6dfbb4b3"
+  },
+  "firstname": "Meet",
+  "lastname": "Patel",
+  "email": "meet@gmail.com",
+  "phone": {
+    "$numberLong": "9638527410"
+  },
+  "password": "$2b$10$cDlVOyxQAMpaqdrHMueSi.2BCbzI2BCFpYtC0sTPFXsvFbCINupJq",
+  "role": "employee",
+  "createdAt": {
+    "$date": "2023-05-05T08:40:28.750Z"
+  },
+  "updatedAt": {
+    "$date": "2023-05-21T10:03:30.851Z"
+  },
+  "__v": 0
+}]
