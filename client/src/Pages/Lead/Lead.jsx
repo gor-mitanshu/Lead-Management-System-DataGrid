@@ -196,7 +196,7 @@ const Lead = () => {
       headerClassName: "header",
       description: "Name",
       flex: 0.8,
-      editable: true,
+      editable: false,
     },
 
     {
