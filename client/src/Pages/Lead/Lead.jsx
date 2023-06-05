@@ -127,10 +127,10 @@ const Lead = () => {
 
   const onRowUpdate = async (newRowLead) => {
     try {
-      if (!(newRowLead.firstname + " " + newRowLead.lastname)) {
-        toast.error("Please Enter Name");
-        return;
-      }
+      // if (!newRowLead.name) {
+      //   toast.error("Please Enter FullName");
+      //   return;
+      // }
 
       if (!newRowLead.email) {
         toast.error("Please Enter Email");
@@ -181,7 +181,7 @@ const Lead = () => {
     return updatedRow;
   };
 
-  const columns = [
+  const adminColumns = [
     {
       field: "id",
       headerName: "ID",
@@ -280,13 +280,116 @@ const Lead = () => {
       getActions: (params) => [
         <GridActionsCellItem
           icon={<Visibility color={"primary"} />}
-          label="Delete"
+          label="View"
           onClick={() => navigate(`/viewlead/${params.row.leadId}`)}
         />,
         <GridActionsCellItem
           icon={<Delete sx={{ color: "#dc3535cc !important" }} />}
           label="Delete"
           onClick={() => onLeadDelete(params.row.leadId)}
+        />,
+        <GridActionsCellItem
+          icon={<Edit color="info" />}
+          label="Edit"
+          onClick={() => navigate(`/editlead/${params.row.leadId}`)}
+        />,
+      ],
+    },
+  ];
+  const employeeColumns = [
+    {
+      field: "id",
+      headerName: "ID",
+      headerClassName: "header",
+      description: "ID",
+      flex: 0,
+      editable: false,
+    },
+    {
+      field: "name",
+      headerName: "Name",
+      headerClassName: "header",
+      description: "Name",
+      flex: 0.8,
+      editable: false,
+    },
+
+    {
+      field: "email",
+      headerName: "Email",
+      headerClassName: "header",
+      description: "Email",
+      flex: 1.2,
+      editable: false,
+    },
+    {
+      field: "phone",
+      headerName: "Phone",
+      headerClassName: "header",
+      description: "Contact",
+      flex: 0.8,
+      editable: false,
+    },
+
+    {
+      field: "status",
+      headerName: "Status",
+      headerClassName: "header",
+      description: "Status of the Lead",
+      flex: 1.2,
+      renderCell: (params) => {
+        return (
+          <Chip
+            icon={
+              params.row.status === "PENDING" ? (
+                <Pending />
+              ) : params.row.status === "COMPLETED" ? (
+                <DoneAllOutlined />
+              ) : params.row.status === "REJECTED" ? (
+                <Clear />
+              ) : (
+                ""
+              )
+            }
+            label={params.row.status}
+            variant={"contained"}
+            size="medium"
+            sx={{ width: "130px" }}
+            className={
+              params.row.status === "PENDING"
+                ? "pending"
+                : params.row.status === "COMPLETED"
+                ? "accepted"
+                : params.row.status === "REJECTED"
+                ? "rejected"
+                : ""
+            }
+            color="info"
+          />
+        );
+      },
+    },
+    {
+      field: "lead",
+      headerName: "Lead",
+      headerClassName: "header",
+      description: "Lead Information",
+      flex: 1.3,
+      editable: false,
+    },
+    {
+      field: "actions",
+      headerName: "Actions",
+      headerClassName: "header",
+      description: "Actions",
+      flex: 0,
+      type: "actions",
+
+      getActions: (params) => [
+        <GridActionsCellItem
+          icon={<Visibility color={"primary"} />}
+          label="View"
+          onClick={() => navigate(`/viewlead/${params.row.leadId}`)}
         />,
         <GridActionsCellItem
           icon={<Edit color="info" />}
@@ -398,7 +501,7 @@ const Lead = () => {
 
             <DataGrid
               rows={rows}
-              columns={columns}
+              columns={role === "admin" ? adminColumns : employeeColumns}
               autoHeight
               slots={{ toolbar: GridToolbar }}
               sx={{ background: "#a9a9a942" }}
