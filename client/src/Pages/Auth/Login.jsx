@@ -15,7 +15,6 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import useAuth from "../useAuth";
 import { useLocation } from "react-router-dom";
-
 const Login = () => {
   const { login } = useAuth();
   const { state } = useLocation();
@@ -23,11 +22,9 @@ const Login = () => {
     email: "",
     password: "",
   });
-
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword(!showPassword);
   const handleMouseDownPassword = (event) => event.preventDefault();
-
   const handlechange = (e) => {
     const { name, value } = e.target;
     setUser({
@@ -35,11 +32,9 @@ const Login = () => {
       [name]: value,
     });
   };
-
   const navigate = useNavigate();
   const HandleAdminLogin = async (e) => {
     e.preventDefault(e);
-
     try {
       const res = await axios.post(`${process.env.REACT_APP_API}/api/login`, {
         email: user.email,
@@ -112,7 +107,6 @@ const Login = () => {
                 Login
               </Typography>
             </Grid>
-
             <form autoComplete="on" onSubmit={HandleAdminLogin}>
               <TextField
                 variant="outlined"
@@ -126,7 +120,6 @@ const Login = () => {
                 onChange={handlechange}
                 autoFocus
               />
-
               <TextField
                 variant="outlined"
                 margin="dense"
@@ -151,7 +144,6 @@ const Login = () => {
                   ),
                 }}
               />
-
               <Button
                 type="submit"
                 sx={{ margin: "25px 0 0 0" }}
@@ -177,5 +169,4 @@ const Login = () => {
     </>
   );
 };
-
 export default Login;

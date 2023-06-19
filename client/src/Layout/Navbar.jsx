@@ -1,7 +1,6 @@
 import { AppBar, Grid, Toolbar, Typography } from "@mui/material";
 import React, { useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
-
 const NavBar = (props) => {
   const [isOpen, setOpen] = useState(false);
   const toggleSidebar = () => {
@@ -39,5 +38,4 @@ const NavBar = (props) => {
     </>
   );
 };
-
 export default NavBar;

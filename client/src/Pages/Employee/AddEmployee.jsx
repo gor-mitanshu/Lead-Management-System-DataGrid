@@ -13,7 +13,6 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Loader from "../Loader";
-
 const AddEmployee = () => {
   const navigate = useNavigate();
   var regfirstname = /^[a-zA-Z]{2,30}$/;
@@ -21,7 +20,6 @@ const AddEmployee = () => {
   var regemail =
     /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
   var regphone = /^[1-9]\d{9}$/;
-
   const [isloading, setLoading] = useState(false);
   const [addEmp, setAddEmp] = useState({
     firstname: "",
@@ -55,7 +53,6 @@ const AddEmployee = () => {
       toast.error("Please Enter the Valid Phone Number");
       return;
     }
-
     try {
       const body = {
         firstname: addEmp.firstname,
@@ -67,7 +64,6 @@ const AddEmployee = () => {
         `${process.env.REACT_APP_API}/api/addemployees`,
         body
       );
-
       if (res && res.data.success) {
         toast.success(res.data.message);
         navigate("/employees");
@@ -78,7 +74,6 @@ const AddEmployee = () => {
       toast.error(error.response.data.message);
     }
   };
-
   useEffect(() => {
     setLoading(true);
     setTimeout(() => {
@@ -145,7 +140,6 @@ const AddEmployee = () => {
                         onChange={handleAddEmp}
                       />
                     </Grid>
-
                     <Grid item xs={12}>
                       <TextField
                         label="Email"
@@ -156,7 +150,6 @@ const AddEmployee = () => {
                         onChange={handleAddEmp}
                       />
                     </Grid>
-
                     <Grid item xs={12}>
                       <TextField
                         label="Phone Number"
@@ -192,5 +185,4 @@ const AddEmployee = () => {
     </>
   );
 };
-
 export default AddEmployee;

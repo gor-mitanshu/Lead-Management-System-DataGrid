@@ -3,14 +3,12 @@ import React, { useState } from "react";
 import { Outlet } from "react-router-dom";
 import NavBar from "./Navbar";
 import SideBar from "./Sidebar";
-
 const Layout = () => {
   const [isOpen, setIsClose] = useState(true);
 
   const toggleSidebar = (data) => {
     setIsClose(data);
   };
-
   return (
     <>
       <Grid sx={{ display: "flex", height: "100vh" }}>
@@ -35,5 +33,4 @@ const Layout = () => {
     </>
   );
 };
-
 export default Layout;

@@ -15,7 +15,6 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import Loader from "../Loader";
-
 const EditEmployee = () => {
   const navigate = useNavigate();
   const { id } = useParams("");
@@ -24,14 +23,10 @@ const EditEmployee = () => {
   var regemail =
     /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
   var regphone = /^[1-9]\d{9}$/;
-  // var regpassword =
-  //   /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
-
   const [showPassword, setShowPassword] = useState(false);
   const [isloading, setLoading] = useState(false);
   const handleClickShowPassword = () => setShowPassword(!showPassword);
   const handleMouseDownPassword = (event) => event.preventDefault();
-
   const [updatEmp, setUpdatEmp] = useState({
     firstname: "",
     lastname: "",
@@ -46,7 +41,6 @@ const EditEmployee = () => {
       [name]: value,
     });
   };
-
   const viewEmp = async () => {
     await axios
       .get(`${process.env.REACT_APP_API}/api/getemployee/${id}`)
@@ -66,7 +60,6 @@ const EditEmployee = () => {
     }, 650);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
   const EditSubmit = async (e) => {
     e.preventDefault();
     if (!regfirstname.test(updatEmp.firstname)) {
@@ -157,7 +150,6 @@ const EditEmployee = () => {
                         onChange={handleEditEmp}
                       />
                     </Grid>
-
                     <Grid item xs={12} sm={6}>
                       <TextField
                         label="Lastname"
@@ -168,7 +160,6 @@ const EditEmployee = () => {
                         onChange={handleEditEmp}
                       />
                     </Grid>
-
                     <Grid item xs={12}>
                       <TextField
                         label="Email"
@@ -179,7 +170,6 @@ const EditEmployee = () => {
                         onChange={handleEditEmp}
                       />
                     </Grid>
-
                     <Grid item xs={12}>
                       <TextField
                         label="Phone Number"
@@ -191,7 +181,6 @@ const EditEmployee = () => {
                         onChange={handleEditEmp}
                       />
                     </Grid>
-
                     <Grid item xs={12}>
                       <TextField
                         type={showPassword ? "text" : "password"}
@@ -244,5 +233,4 @@ const EditEmployee = () => {
     </>
   );
 };
-
 export default EditEmployee;

@@ -17,12 +17,10 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import Loader from "../Loader";
-
 const EditLead = () => {
   const [emp, setEmp] = useState([]);
   const [isloading, setLoading] = useState(false);
   const [status, setStatus] = useState([]);
-
   const getEmpData = async () => {
     await axios
       .get(`${process.env.REACT_APP_API}/api/getemployees`)
@@ -48,7 +46,6 @@ const EditLead = () => {
       getEmpData();
     }, 650);
   }, []);
-
   const navigate = useNavigate();
   const { id } = useParams("");
   var regfirstname = /^[a-zA-Z]{2,30}$/;
@@ -56,14 +53,12 @@ const EditLead = () => {
   var regemail =
     /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
   var regphone = /^[1-9]\d{9}$/;
-
   const [role, setRole] = useState();
   useEffect(() => {
     const token = JSON.parse(localStorage.getItem("auth")).result.token;
     const data = JSON.parse(atob(token.split(".")[1])).admin;
     setRole(data.role);
   }, []);
-
   const [updatLead, setUpdatLead] = useState({
     firstname: "",
     lastname: "",
@@ -82,7 +77,6 @@ const EditLead = () => {
       [name]: value,
     });
   };
-
   const viewEnq = async () => {
     await axios
       .get(`${process.env.REACT_APP_API}/api/lead/${id}`)
@@ -98,7 +92,6 @@ const EditLead = () => {
     viewEnq();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
   const EditEnq = async (e) => {
     e.preventDefault();
     if (!regfirstname.test(updatLead.firstname)) {
@@ -196,7 +189,6 @@ const EditLead = () => {
                         onChange={handleEditEnq}
                       />
                     </Grid>
-
                     <Grid item xs={12} sm={6}>
                       <TextField
                         disabled={role === "admin" ? false : true}
@@ -208,7 +200,6 @@ const EditLead = () => {
                         onChange={handleEditEnq}
                       />
                     </Grid>
-
                     <Grid item xs={12}>
                       <TextField
                         disabled={role === "admin" ? false : true}
@@ -220,7 +211,6 @@ const EditLead = () => {
                         onChange={handleEditEnq}
                       />
                     </Grid>
-
                     <Grid item xs={12}>
                       <TextField
                         disabled={role === "admin" ? false : true}
@@ -246,7 +236,6 @@ const EditLead = () => {
                         onChange={handleEditEnq}
                       />
                     </Grid>
-
                     <Grid item xs={12}>
                       <FormControl fullWidth align="left">
                         <InputLabel id="workExp">Status</InputLabel>
@@ -266,7 +255,6 @@ const EditLead = () => {
                         </Select>
                       </FormControl>
                     </Grid>
-
                     <Grid item xs={12}>
                       <FormControl fullWidth align="left">
                         <InputLabel
@@ -292,7 +280,6 @@ const EditLead = () => {
                         </Select>
                       </FormControl>
                     </Grid>
-
                     <Grid item xs={12}>
                       <TextField
                         disabled={role === "admin" ? false : true}
@@ -331,5 +318,4 @@ const EditLead = () => {
     </>
   );
 };
-
 export default EditLead;

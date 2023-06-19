@@ -11,7 +11,6 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import Loader from "../Loader";
-
 const ViewEmp = () => {
   const [viewEmp, setViewEmp] = useState({
     firstname: "",
@@ -19,10 +18,8 @@ const ViewEmp = () => {
     email: "",
     phone: "",
   });
-
   const [isloading, setLoading] = useState(false);
   const { id } = useParams("");
-
   const EmpView = async () => {
     await axios
       .get(`${process.env.REACT_APP_API}/getemp-details/${id}`)
@@ -41,7 +38,6 @@ const ViewEmp = () => {
         }
       });
   };
-
   useEffect(() => {
     setLoading(true);
     setTimeout(() => {
@@ -82,7 +78,6 @@ const ViewEmp = () => {
                     View Lead
                   </Typography>
                 </Grid>
-
                 <Grid container spacing={2}>
                   <Grid item xs={12} sm={6}>
                     <TextField
@@ -94,7 +89,6 @@ const ViewEmp = () => {
                       value={viewEmp.firstname}
                     />
                   </Grid>
-
                   <Grid item xs={12} sm={6}>
                     <TextField
                       readonly
@@ -105,7 +99,6 @@ const ViewEmp = () => {
                       value={viewEmp.lastname}
                     />
                   </Grid>
-
                   <Grid item xs={12}>
                     <TextField
                       readonly
@@ -116,7 +109,6 @@ const ViewEmp = () => {
                       value={viewEmp.email}
                     />
                   </Grid>
-
                   <Grid item xs={12}>
                     <TextField
                       readonly
@@ -129,7 +121,6 @@ const ViewEmp = () => {
                     />
                   </Grid>
                 </Grid>
-
                 <Link to="/employees" className="btn-link">
                   <Button
                     variant="contained"
@@ -148,5 +139,4 @@ const ViewEmp = () => {
     </>
   );
 };
-
 export default ViewEmp;

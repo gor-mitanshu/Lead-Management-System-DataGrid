@@ -1,8 +1,4 @@
-import {
-  Delete,
-  Edit,
-  // Visibility
-} from "@mui/icons-material";
+import { Delete, Edit } from "@mui/icons-material";
 import { Grid, Typography } from "@mui/material";
 import Loader from "../Loader";
 import axios from "axios";
@@ -10,14 +6,12 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { DataGrid, GridActionsCellItem, GridToolbar } from "@mui/x-data-grid";
-
 const Clients = () => {
   const [id, setId] = useState();
   const [role, setRole] = useState();
   const [client, setClient] = useState([]);
   const [isloading, setLoading] = useState(false);
   const navigate = useNavigate();
-
   const getEmpClient = async () => {
     await axios
       .get(`${process.env.REACT_APP_API}/getemplead/${id}`)
@@ -26,7 +20,6 @@ const Clients = () => {
         setClient(res.data.data.filter((e) => e.status === "COMPLETED"));
       });
   };
-
   const getData = async () => {
     let response = await axios.get(`${process.env.REACT_APP_API}/api/getleads`);
 
@@ -51,7 +44,6 @@ const Clients = () => {
     }, 650);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, role]);
-
   const onDelete = async (id) => {
     try {
       const res = await axios.delete(
@@ -67,7 +59,6 @@ const Clients = () => {
       toast.error(error.response.data.message);
     }
   };
-
   const columns = [
     {
       field: "id",
@@ -83,10 +74,7 @@ const Clients = () => {
       description: "Name",
       flex: 1,
       editable: true,
-      // valueGetter: onChangeRow,
-      // valueParser: onChangeRow,
     },
-
     {
       field: "email",
       headerName: "Email",
@@ -125,13 +113,7 @@ const Clients = () => {
       description: "Actions",
       flex: 0,
       type: "actions",
-
       getActions: (params) => [
-        // <GridActionsCellItem
-        //   icon={<Visibility color={"primary"} />}
-        //   label="Delete"
-        //   onClick={() => navigate(`/viewclient/${params.row.clientId}`)}
-        // />,
         <GridActionsCellItem
           icon={<Delete color={"error"} />}
           label="Delete"
@@ -145,7 +127,6 @@ const Clients = () => {
       ],
     },
   ];
-
   const rows = client.map((row, key) => ({
     id: key + 1,
     name: row.firstname + " " + row.lastname,
@@ -208,5 +189,4 @@ const Clients = () => {
     </>
   );
 };
-
 export default Clients;

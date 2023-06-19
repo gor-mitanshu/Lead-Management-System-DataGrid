@@ -17,7 +17,6 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "axios";
 import useAuth from "../Pages/useAuth";
-
 const SideBar = () => {
   const navigate = useNavigate();
   const [role, setRole] = useState();
@@ -39,7 +38,6 @@ const SideBar = () => {
         });
     }
   }, []);
-
   const Logout = () => {
     logout();
     localStorage.clear();
@@ -62,7 +60,6 @@ const SideBar = () => {
       >
         <Toolbar />
         <Divider />
-
         <Grid item lg={12} xs={3} sm={6}>
           <NavLink
             to="/dashboard"
@@ -82,7 +79,6 @@ const SideBar = () => {
           </NavLink>
         </Grid>
         <Divider />
-
         <Grid item lg={12} xs={3} sm={6}>
           <NavLink
             to="/profile"
@@ -99,7 +95,6 @@ const SideBar = () => {
           </NavLink>
         </Grid>
         <Divider />
-
         {role === "admin" ? (
           <>
             <Grid item lg={12} xs={3} sm={6}>
@@ -123,7 +118,6 @@ const SideBar = () => {
             <Divider />
           </>
         ) : null}
-
         <Grid item lg={12} xs={3} sm={6}>
           <NavLink to="/lead" style={{ textDecoration: "none", color: "#fff" }}>
             <ListItem disablePadding className="sidebar-btn">
@@ -137,7 +131,6 @@ const SideBar = () => {
           </NavLink>
         </Grid>
         <Divider />
-
         <Grid item lg={12} xs={3} sm={6}>
           <NavLink
             to="/clients"
@@ -154,7 +147,6 @@ const SideBar = () => {
           </NavLink>
         </Grid>
         <Divider />
-
         <Grid item lg={12} xs={3} sm={6}>
           <NavLink
             to={`/changepassword/${id}`}
@@ -180,7 +172,6 @@ const SideBar = () => {
           </NavLink>
         </Grid>
         <Divider />
-
         <Grid item lg={12} xs={3} sm={6}>
           <ListItem
             disablePadding
@@ -200,5 +191,4 @@ const SideBar = () => {
     </>
   );
 };
-
 export default SideBar;

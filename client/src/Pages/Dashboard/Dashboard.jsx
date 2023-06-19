@@ -7,7 +7,6 @@ import { useEffect } from "react";
 Chart.register(CategoryScale);
 Chart.register(...registerables);
 Chart.register(ArcElement);
-
 const Dashboard = () => {
   const [id, setId] = useState();
   const [role, setRole] = useState();
@@ -24,7 +23,6 @@ const Dashboard = () => {
       },
     ],
   };
-
   var YearleadChart = {
     labels: [],
     datasets: [
@@ -36,10 +34,8 @@ const Dashboard = () => {
       },
     ],
   };
-
   let [TotalLastMonthleads, setTotalLastMonthleads] = useState(monthLeadChart);
   let [TotalLastYearleads, setTotalLastYearleads] = useState(YearleadChart);
-
   const getEmpLead = async () => {
     await axios
       .get(`${process.env.REACT_APP_API}/getemplead/${id}`)
@@ -54,7 +50,6 @@ const Dashboard = () => {
         setTotalLastYearleads(getYearLeads(response.data.data));
       });
   };
-
   const getEnqData = async () => {
     await axios
       .get(`${process.env.REACT_APP_API}/api/getleads`)
@@ -69,7 +64,6 @@ const Dashboard = () => {
         setTotalLastYearleads(getYearLeads(response.data.data));
       });
   };
-
   const getMonthlyData = () => {
     var date = new Date();
     var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
@@ -79,7 +73,6 @@ const Dashboard = () => {
         new Date(el.createdAt) >= firstDay && new Date(el.createdAt) <= lastDay
     ).length;
   };
-
   const getLastMonthLeads = (monthData) => {
     var date = new Date();
     var firstDay = new Date(date.getFullYear(), date.getMonth() - 1, 1);
@@ -110,15 +103,12 @@ const Dashboard = () => {
       ],
     };
   };
-
   const getYearLeads = (yearData) => {
     var date = new Date();
     var firstYear = new Date(date.getFullYear(), date.getMonth(), 1);
-    // var lastYear = new Date(date.getFullYear(), date.getMonth() + 1, 0);
     let currentYear = firstYear;
     let dateArray = [];
     let data = [];
-
     let i = 0;
     let currentDate = new Date();
     for (i; i < 12; i++) {
@@ -143,7 +133,6 @@ const Dashboard = () => {
       ],
     };
   };
-
   useEffect(() => {
     const token = JSON.parse(localStorage.getItem("auth")).result.token;
     const data = JSON.parse(atob(token.split(".")[1])).admin;
@@ -157,7 +146,6 @@ const Dashboard = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, role]);
-
   return (
     <>
       <Grid container padding={2}>
@@ -185,7 +173,6 @@ const Dashboard = () => {
               </Box>
             </Card>
           </Grid>
-
           <Grid item lg={2.4} sm={6} xs={12}>
             <Card
               sx={{
@@ -209,7 +196,6 @@ const Dashboard = () => {
               </Box>
             </Card>
           </Grid>
-
           <Grid item lg={2.4} sm={6} xs={12}>
             <Card
               sx={{
@@ -233,7 +219,6 @@ const Dashboard = () => {
               </Box>
             </Card>
           </Grid>
-
           <Grid item lg={2.4} sm={6} xs={12}>
             <Card
               sx={{
@@ -257,7 +242,6 @@ const Dashboard = () => {
               </Box>
             </Card>
           </Grid>
-
           <Grid item lg={2.4} sm={6} xs={12}>
             <Card
               sx={{
@@ -282,7 +266,6 @@ const Dashboard = () => {
             </Card>
           </Grid>
         </Grid>
-
         <Grid item container spacing={2}>
           <Grid item lg={6} xs={12}>
             <Card
@@ -298,7 +281,6 @@ const Dashboard = () => {
               />
             </Card>
           </Grid>
-
           <Grid item lg={6} xs={12}>
             <Card
               sx={{
@@ -315,5 +297,4 @@ const Dashboard = () => {
     </>
   );
 };
-
 export default Dashboard;

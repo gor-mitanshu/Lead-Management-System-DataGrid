@@ -6,12 +6,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Loader from "../Loader";
 import { DataGrid, GridActionsCellItem, GridToolbar } from "@mui/x-data-grid";
-
 const Employee = () => {
   const navigate = useNavigate();
   const [emp, setEmp] = useState([]);
   const [isloading, setLoading] = useState(false);
-
   const getEmpData = async () => {
     await axios
       .get(`${process.env.REACT_APP_API}/api/getemployees`)
@@ -38,13 +36,11 @@ const Employee = () => {
     localStorage.getItem("auth");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
   const onEmpDelete = async (id) => {
     try {
       const res = await axios.delete(
         `${process.env.REACT_APP_API}/api/deleteemployee/${id}`
       );
-
       if (res && res.data.success) {
         getEmpData();
         toast.success(res.data.message);
@@ -55,7 +51,6 @@ const Employee = () => {
       toast.error(error.data.message);
     }
   };
-
   const onDeleteAll = async () => {
     try {
       const res = await axios.delete(
@@ -71,7 +66,6 @@ const Employee = () => {
       toast.error(error.data.message);
     }
   };
-
   const columns = [
     {
       field: "id",
@@ -112,7 +106,6 @@ const Employee = () => {
       description: "Actions",
       flex: 0,
       type: "actions",
-
       getActions: (params) => [
         <GridActionsCellItem
           icon={<Visibility color={"primary"} />}
@@ -132,7 +125,6 @@ const Employee = () => {
       ],
     },
   ];
-
   const rows = emp.map((row, key) => ({
     id: key + 1,
     name: row.firstname + " " + row.lastname,
@@ -187,7 +179,6 @@ const Employee = () => {
               </Button>
             </Link>
           </Grid>
-
           <Grid item lg={12} sm={12} xs={11}>
             {emp.length <= 0 ? (
               <div style={{ textAlign: "center", color: "red" }}>
@@ -212,5 +203,4 @@ const Employee = () => {
     </>
   );
 };
-
 export default Employee;

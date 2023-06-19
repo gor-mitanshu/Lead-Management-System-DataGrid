@@ -19,7 +19,6 @@ import {
   GridMenuIcon,
   GridToolbar,
 } from "@mui/x-data-grid";
-
 const Lead = () => {
   const navigate = useNavigate();
   const [id, setId] = useState();
@@ -28,7 +27,6 @@ const Lead = () => {
   const [isloading, setLoading] = useState(false);
   const [selectedFile, setSelectedFile] = useState([]);
   const [checkboxSelection, setCheckboxSelection] = useState(false);
-
   const getEmpLead = async () => {
     await axios
       .get(`${process.env.REACT_APP_API}/getemplead/${id}`)
@@ -37,7 +35,6 @@ const Lead = () => {
         setLead(res.data.data);
       });
   };
-
   const getLeadData = async () => {
     await axios
       .get(`${process.env.REACT_APP_API}/api/getleads`)
@@ -70,10 +67,8 @@ const Lead = () => {
         getEmpLead();
       }
     }, 650);
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, role]);
-
   const onLeadDelete = async (id) => {
     try {
       const res = await axios.delete(
@@ -89,7 +84,6 @@ const Lead = () => {
       toast.error(error.response.data.message);
     }
   };
-
   const onDeleteAll = async () => {
     try {
       const res = await axios.post(
@@ -105,7 +99,6 @@ const Lead = () => {
       toast.error(error.data.message);
     }
   };
-
   const onDeleteSelectedRow = async () => {
     const uData = lead.filter((e, index) => selectedFile.includes(index + 1));
     const Data = uData.map((element) => {
@@ -124,14 +117,8 @@ const Lead = () => {
       toast.error(res.data.message);
     }
   };
-
   const onRowUpdate = async (newRowLead) => {
     try {
-      // if (!newRowLead.name) {
-      //   toast.error("Please Enter FullName");
-      //   return;
-      // }
-
       if (!newRowLead.email) {
         toast.error("Please Enter Email");
         return;
@@ -140,7 +127,6 @@ const Lead = () => {
         toast.error("Please Enter Phone Number");
         return;
       }
-
       if (!newRowLead.lead) {
         toast.error("Please Enter Lead");
         return;
@@ -153,7 +139,6 @@ const Lead = () => {
         toast.error("Please Enter Status of Lead");
         return;
       }
-
       const body = {
         firstname: newRowLead.name.split(" ").slice(0, -1).join(" "),
         lastname: newRowLead.name.split(" ").slice(-1).join(" "),
@@ -176,11 +161,9 @@ const Lead = () => {
     } catch (error) {
       toast.error(error.response.data.message);
     }
-
     const updatedRow = { ...newRowLead };
     return updatedRow;
   };
-
   const adminColumns = [
     {
       field: "id",
@@ -198,7 +181,6 @@ const Lead = () => {
       flex: 0.8,
       editable: false,
     },
-
     {
       field: "email",
       headerName: "Email",
@@ -276,7 +258,6 @@ const Lead = () => {
       description: "Actions",
       flex: 0,
       type: "actions",
-
       getActions: (params) => [
         <GridActionsCellItem
           icon={<Visibility color={"primary"} />}
@@ -313,7 +294,6 @@ const Lead = () => {
       flex: 0.8,
       editable: false,
     },
-
     {
       field: "email",
       headerName: "Email",
@@ -330,7 +310,6 @@ const Lead = () => {
       flex: 0.8,
       editable: false,
     },
-
     {
       field: "status",
       headerName: "Status",
@@ -384,7 +363,6 @@ const Lead = () => {
       description: "Actions",
       flex: 0,
       type: "actions",
-
       getActions: (params) => [
         <GridActionsCellItem
           icon={<Visibility color={"primary"} />}
@@ -399,7 +377,6 @@ const Lead = () => {
       ],
     },
   ];
-
   const rows = lead.map((row, key) => ({
     id: key + 1,
     name: row.firstname + " " + row.lastname,
@@ -412,7 +389,6 @@ const Lead = () => {
     lead: row.enquiry,
     leadId: row._id,
   }));
-
   return (
     <>
       {isloading ? (
@@ -458,25 +434,21 @@ const Lead = () => {
                     onClick={onDeleteAll}
                     sx={{
                       mb: 3,
-                      // backgroundColor: "#dc3535cc !important",
                     }}
                   >
                     Delete All Leads
                   </Button>
-
                   <Button
                     variant="contained"
                     color="error"
                     startIcon={<Delete />}
                     sx={{
                       mb: 3,
-                      // backgroundColor: "#dc3535cc !important",
                     }}
                     onClick={onDeleteSelectedRow}
                   >
                     Delete Selected Lead
                   </Button>
-
                   <Link to={"add"}>
                     <Button
                       variant="contained"
@@ -490,7 +462,6 @@ const Lead = () => {
               </>
             ) : null}
           </Grid>
-
           <Grid item lg={12} sm={12} xs={11}>
             <GridMenuIcon
               sx={{ mb: 0 }}
@@ -498,7 +469,6 @@ const Lead = () => {
               color="inherit"
               onClick={() => setCheckboxSelection(!checkboxSelection)}
             />
-
             <DataGrid
               rows={rows}
               columns={
@@ -530,5 +500,4 @@ const Lead = () => {
     </>
   );
 };
-
 export default Lead;
