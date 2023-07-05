@@ -51,21 +51,21 @@ const Employee = () => {
       toast.error(error.data.message);
     }
   };
-  const onDeleteAll = async () => {
-    try {
-      const res = await axios.delete(
-        `${process.env.REACT_APP_API}/api/delete-all`
-      );
-      if (res && res.data.success) {
-        getEmpData();
-        toast.success(res.data.message);
-      } else {
-        toast.error(res.data.message);
-      }
-    } catch (error) {
-      toast.error(error.data.message);
-    }
-  };
+  // const onDeleteAll = async () => {
+  //   try {
+  //     const res = await axios.delete(
+  //       `${process.env.REACT_APP_API}/api/delete-all`
+  //     );
+  //     if (res && res.data.success) {
+  //       getEmpData();
+  //       toast.success(res.data.message);
+  //     } else {
+  //       toast.error(res.data.message);
+  //     }
+  //   } catch (error) {
+  //     toast.error(error.data.message);
+  //   }
+  // };
   const columns = [
     {
       field: "id",
@@ -141,43 +141,53 @@ const Employee = () => {
         </>
       ) : (
         <Grid container padding={2}>
-          <Typography
-            className="font"
-            color="#202c70"
-            variant="h3"
-            paddingBottom={3}
-          >
-            Employees
-          </Typography>
           <Grid
             item
             sx={{
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
-              flexWrap: "wrap-reverse",
+              flexWrap: "wrap",
             }}
             xs={12}
           >
-            <Button
-              variant="contained"
-              color="error"
-              startIcon={<Delete />}
-              onClick={onDeleteAll}
-              sx={{ marginBottom: "16px" }}
+            <Typography
+              className="font"
+              color="#202c70"
+              variant="h3"
+              paddingBottom={3}
             >
-              Delete All Employees
-            </Button>
-            <Link to="/addemployee" className="btn-link">
-              <Button
+              Employees
+            </Typography>
+            <Grid
+              item
+              sx={{
+                display: "flex",
+                justifyContent: "end",
+                alignItems: "center",
+                flexWrap: "wrap-reverse",
+              }}
+            >
+              <Link to="/addemployee" className="btn-link">
+                <Button
+                  variant="contained"
+                  color="primary"
+                  startIcon={<PersonAddAlt />}
+                  sx={{ marginBottom: "16px" }}
+                >
+                  Add Employee
+                </Button>
+              </Link>
+              {/* <Button
                 variant="contained"
-                color="primary"
-                startIcon={<PersonAddAlt />}
+                color="error"
+                startIcon={<Delete />}
+                onClick={onDeleteAll}
                 sx={{ marginBottom: "16px" }}
               >
-                Add Employee
-              </Button>
-            </Link>
+                Delete All Employees
+              </Button> */}
+            </Grid>
           </Grid>
           <Grid item lg={12} sm={12} xs={11}>
             {emp.length <= 0 ? (
@@ -190,9 +200,9 @@ const Employee = () => {
                 rows={rows}
                 initialState={{
                   ...emp.initialState,
-                  pagination: { paginationModel: { pageSize: 5 } },
+                  pagination: { paginationModel: { pageSize: 7 } },
                 }}
-                pageSizeOptions={[1, 3, 5]}
+                pageSizeOptions={[7, 10, 25]}
                 sx={{ background: "#a9a9a914" }}
                 slots={{ toolbar: GridToolbar }}
               />

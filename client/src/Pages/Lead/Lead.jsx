@@ -84,21 +84,21 @@ const Lead = () => {
       toast.error(error.response.data.message);
     }
   };
-  const onDeleteAll = async () => {
-    try {
-      const res = await axios.post(
-        `${process.env.REACT_APP_API}/api/delete-all`
-      );
-      if (res && res.data.success) {
-        getLeadData();
-        toast.success(res.data.message);
-      } else {
-        toast.error(res.data.message);
-      }
-    } catch (error) {
-      toast.error(error.data.message);
-    }
-  };
+  // const onDeleteAll = async () => {
+  //   try {
+  //     const res = await axios.post(
+  //       `${process.env.REACT_APP_API}/api/delete-all`
+  //     );
+  //     if (res && res.data.success) {
+  //       getLeadData();
+  //       toast.success(res.data.message);
+  //     } else {
+  //       toast.error(res.data.message);
+  //     }
+  //   } catch (error) {
+  //     toast.error(error.data.message);
+  //   }
+  // };
   const onDeleteSelectedRow = async () => {
     const uData = lead.filter((e, index) => selectedFile.includes(index + 1));
     const Data = uData.map((element) => {
@@ -421,13 +421,12 @@ const Lead = () => {
                   item
                   sx={{
                     display: "flex",
-                    justifyContent: "space-between",
+                    justifyContent: "end",
                     alignItems: "center",
                     flexWrap: "wrap-reverse",
                   }}
-                  xs={12}
                 >
-                  <Button
+                  {/* <Button
                     variant="contained"
                     color="error"
                     startIcon={<Delete />}
@@ -437,31 +436,33 @@ const Lead = () => {
                     }}
                   >
                     Delete All Leads
-                  </Button>
-                  <Button
-                    variant="contained"
-                    color="error"
-                    startIcon={<Delete />}
-                    sx={{
-                      mb: 3,
-                    }}
-                    onClick={onDeleteSelectedRow}
-                  >
-                    Delete Selected Lead
-                  </Button>
+                  </Button> */}
                   <Link to={"add"}>
                     <Button
                       variant="contained"
                       startIcon={<PersonAddAlt />}
                       sx={{ mb: 3 }}
                     >
-                      Add Employee
+                      Add Lead
                     </Button>
                   </Link>
+                  <Button
+                    variant="contained"
+                    color="error"
+                    startIcon={<Delete />}
+                    sx={{
+                      mb: 3,
+                      marginLeft: "12px",
+                    }}
+                    onClick={onDeleteSelectedRow}
+                  >
+                    Delete Selected Lead
+                  </Button>
                 </Grid>
               </>
             ) : null}
           </Grid>
+
           <Grid item lg={12} sm={12} xs={11}>
             <GridMenuIcon
               sx={{ mb: 0 }}
@@ -476,16 +477,16 @@ const Lead = () => {
                   ? adminColumns
                   : role === "employee"
                   ? employeeColumns
-                  : null
+                  : []
               }
               autoHeight
               slots={{ toolbar: GridToolbar }}
               sx={{ background: "#a9a9a942" }}
               initialState={{
                 ...lead.initialState,
-                pagination: { paginationModel: { pageSize: 6 } },
+                pagination: { paginationModel: { pageSize: 7 } },
               }}
-              pageSizeOptions={[6, 20, 30]}
+              pageSizeOptions={[7, 20, 30]}
               processRowUpdate={onRowUpdate}
               experimentalFeatures={{ newEditingApi: true }}
               checkboxSelection={checkboxSelection}

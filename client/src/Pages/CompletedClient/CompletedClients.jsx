@@ -176,9 +176,9 @@ const Clients = () => {
                 rows={rows}
                 initialState={{
                   ...client.initialState,
-                  pagination: { paginationModel: { pageSize: 6 } },
+                  pagination: { paginationModel: { pageSize: 7 } },
                 }}
-                pageSizeOptions={[6, 20, 30]}
+                pageSizeOptions={[7, 20, 30]}
                 sx={{ background: "#a9a9a914" }}
                 slots={{ toolbar: GridToolbar }}
               />
