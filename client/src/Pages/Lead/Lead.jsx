@@ -437,7 +437,7 @@ const Lead = () => {
                   >
                     Delete All Leads
                   </Button> */}
-                  <Link to={"add"}>
+                  <Link to={"/addlead"}>
                     <Button
                       variant="contained"
                       startIcon={<PersonAddAlt />}
